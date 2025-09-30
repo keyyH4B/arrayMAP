@@ -94,7 +94,7 @@ $data_siswa = array_map(
 
 | Input Jumlah Siswa                           | Formulir Pengisian                         | Hasil Tabel Data                             |
 | -------------------------------------------- | ------------------------------------------ | -------------------------------------------- |
-| ![Input](https://i.ibb.co/L5Szkb3/input.png) | ![Form](https://i.ibb.co/V9VdJmX/form.png) | ![Hasil](https://i.ibb.co/bF9FzC1/hasil.png) |
+| ![Input](https://imgur.com/a/h2Xnuq3) | ![Form](https://imgur.com/a/LOZbSvV) | ![Hasil](https://imgur.com/a/f4OGu52) |
 
 ---
 
