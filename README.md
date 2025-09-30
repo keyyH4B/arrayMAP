@@ -1,140 +1,134 @@
-# ArrayMAP
 
-> **Tugas Pak Fajar — Project Array Map (PHP)**
+# 📚 Proyek Daftar Siswa (PHP Array Map)
 
-Selamat datang di repo **ArrayMAP**!  
-Project ini merupakan tugas sekolah yang mengimplementasikan berbagai operasi array dengan menggunakan konsep **Map** pada bahasa pemrograman PHP. Dengan dokumentasi ini, Anda akan memahami fitur, tujuan, serta penjelasan kode yang digunakan dalam project ini.
+[![GitHub stars](https://img.shields.io/github/stars/keyyH4B/arrayMAP.svg?style=social&label=Star)](https://github.com/keyyH4B/arrayMAP/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/keyyH4B/arrayMAP.svg?style=social&label=Fork)](https://github.com/keyyH4B/arrayMAP/network/members)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/keyyH4B/arrayMAP)
 
----
-
-## 📝 Daftar Isi
-
-- [Deskripsi Project](#deskripsi-project)
-- [Fitur](#fitur)
-- [Struktur File](#struktur-file)
-- [Penjelasan Kode](#penjelasan-kode)
-- [Cara Menjalankan](#cara-menjalankan)
-- [Contoh Output](#contoh-output)
-- [Kontribusi](#kontribusi)
-- [Lisensi](#lisensi)
+Repositori ini adalah implementasi sederhana dari **tugas sekolah** yang menunjukkan penggunaan fungsi `array_map` dalam PHP.  
+Aplikasi web ini memungkinkan pengguna untuk **secara dinamis membuat daftar siswa**, mengisinya, lalu menampilkan data dalam tabel yang terstruktur.
 
 ---
 
-## Deskripsi Project
-
-Project ini dibuat untuk memenuhi tugas sekolah pada mata pelajaran Pemrograman, khususnya materi tentang **Array dan Map di PHP**. Program ini memberikan contoh nyata bagaimana array dapat dimanipulasi menggunakan fungsi-fungsi PHP, seperti `array_map`, `array_filter`, dan lainnya.
-
----
-
-## Fitur
-
-- 🚀 Implementasi berbagai operasi pada array menggunakan PHP.
-- 📚 Penjelasan kode secara detail, mudah dipahami untuk pelajar.
-- 🧑‍💻 Contoh penggunaan fungsi `array_map` untuk memodifikasi isi array.
-- 🔎 Fitur filter, pengurutan, dan pengolahan data array.
+## ✨ Fitur Utama
+- **Input Dinamis**: Menentukan jumlah siswa yang akan didata (1–10).
+- **Generate Form Otomatis**: Sistem membuat formulir untuk input **Nama**, **Umur**, dan **Alamat** sesuai jumlah yang ditentukan.
+- **Pengolahan Data Efisien**: Memanfaatkan `array_map` untuk menggabungkan beberapa array menjadi satu array asosiatif.
+- **Keamanan Dasar**: Menggunakan `htmlspecialchars` untuk mencegah serangan **XSS sederhana**.
+- **Tampilan Bersih**: UI sederhana yang mudah dipahami.
 
 ---
 
-## Struktur File
+## 🚀 Cara Menjalankan Proyek
+
+Ikuti langkah-langkah berikut untuk menjalankan proyek di server lokal Anda:
+
+### 1. Clone Repositori
+```bash
+git clone https://github.com/keyyH4B/arrayMAP.git
+````
+
+### 2. Pindahkan ke Direktori Web Server
+
+Salin folder `arrayMAP` ke dalam **root server lokal**:
+
+* **XAMPP:** `htdocs`
+* **WAMP:** `www`
+
+### 3. Jalankan Server
+
+Pastikan **Apache** dan **PHP** sudah aktif.
+
+### 4. Buka di Browser
+
+Akses URL berikut:
 
 ```
-arrayMAP/
-├── src/
-│   └── array_map_example.php
-├── README.md
+http://localhost/arrayMAP/listsiswa.php
 ```
+
+### 5. Gunakan Aplikasi
+
+* Masukkan **jumlah siswa**, lalu klik **"Generate Table"**.
+* Isi **Nama**, **Umur**, dan **Alamat** pada formulir yang muncul.
+* Klik **"Simpan"** untuk melihat hasil data dalam tabel.
 
 ---
 
-## Penjelasan Kode
+## 🔧 Penjelasan Kode Inti: `array_map`
 
-Di bawah ini merupakan contoh kode utama yang terdapat pada project ini beserta penjelasannya:
+Bagian inti proyek ini adalah pengolahan data dengan `array_map`:
 
 ```php
-<?php
-// Membuat array awal
-$angka = [1, 2, 3, 4, 5];
-
-// Menggunakan array_map untuk mengkuadratkan setiap elemen array
-$kuadrat = array_map(function($n) {
-    return $n * $n;
-}, $angka);
-
-print_r($kuadrat);
-// Output: Array ( [0] => 1 [1] => 4 [2] => 9 [3] => 16 [4] => 25 )
-
-// Menggunakan array_filter untuk mengambil angka genap saja
-$genap = array_filter($angka, function($n) {
-    return $n % 2 == 0;
-});
-
-print_r($genap);
-// Output: Array ( [1] => 2 [3] => 4 )
-
-// Menggunakan array_reduce untuk menjumlahkan semua elemen
-$total = array_reduce($angka, function($carry, $item) {
-    return $carry + $item;
-});
-
-echo "Total: $total\n";
-// Output: Total: 15
-?>
+$data_siswa = array_map(
+    function($n, $u, $a) {
+        return [
+            'nama'   => htmlspecialchars($n),
+            'umur'   => htmlspecialchars($u),
+            'alamat' => htmlspecialchars($a)
+        ];
+    },
+    $nama,
+    $umur,
+    $alamat
+);
 ```
 
-**Penjelasan:**
-- `array_map`: Menerapkan fungsi pada setiap elemen array. Contoh di atas mengkuadratkan setiap angka.
-- `array_filter`: Menyaring array sesuai kondisi. Pada contoh di atas, hanya angka genap yang diambil.
-- `array_reduce`: Mengakumulasi/merangkum nilai array. Pada contoh di atas, seluruh elemen dijumlahkan.
+### Cara Kerjanya:
+
+1. **Input Formulir:** Saat tombol **Simpan** ditekan, PHP menerima tiga array:
+
+   * `$_POST['nama']`
+   * `$_POST['umur']`
+   * `$_POST['alamat']`
+2. **Fungsi `array_map`:** Memanggil fungsi callback dan melakukan iterasi **paralel** pada ketiga array.
+3. **Transformasi Data:**
+
+   * Setiap elemen digabung menjadi satu array asosiatif.
+   * `htmlspecialchars` diterapkan agar data aman.
+4. **Output Akhir:** Menghasilkan array `$data_siswa` yang siap ditampilkan dalam tabel HTML.
 
 ---
 
-## Cara Menjalankan
+## 📸 Tampilan Aplikasi
 
-1. **Clone Repo:**
+| Input Jumlah Siswa                           | Formulir Pengisian                         | Hasil Tabel Data                             |
+| -------------------------------------------- | ------------------------------------------ | -------------------------------------------- |
+| ![Input](https://i.ibb.co/L5Szkb3/input.png) | ![Form](https://i.ibb.co/V9VdJmX/form.png) | ![Hasil](https://i.ibb.co/bF9FzC1/hasil.png) |
+
+---
+
+## 🤝 Berkontribusi
+
+1. Fork repositori ini
+2. Buat branch baru:
+
    ```bash
-   git clone https://github.com/keyyH4B/arrayMAP.git
-   cd arrayMAP/src
+   git checkout -b feature/FiturKeren
    ```
+3. Commit perubahan Anda:
 
-2. **Jalankan program:**
    ```bash
-   php array_map_example.php
+   git commit -m "Menambahkan FiturKeren"
    ```
+4. Push ke branch:
+
+   ```bash
+   git push origin feature/FiturKeren
+   ```
+5. Buat **Pull Request** baru.
 
 ---
 
-## Contoh Output
+## 📝 Lisensi
 
-```
-Array
-(
-    [0] => 1
-    [1] => 4
-    [2] => 9
-    [3] => 16
-    [4] => 25
-)
-Array
-(
-    [1] => 2
-    [3] => 4
-)
-Total: 15
-```
+Proyek ini menggunakan **MIT License**.
+Lihat file [LICENSE](LICENSE) untuk informasi lebih lengkap.
 
 ---
 
-## Kontribusi
+## 🔥 Tunjukkan Dukungan Anda!
 
-Kontribusi sangat terbuka!  
-Silakan fork, buat branch dengan fitur/ide baru, lalu buat Pull Request ke repo ini.
+Jika Anda menyukai proyek ini, jangan lupa berikan **bintang ⭐** di GitHub!
 
----
-
-## Lisensi
-
-Project ini dibuat untuk pembelajaran dan sepenuhnya open-source.
-
----
-
-> _Dibuat dengan semangat belajar oleh [keyyH4B](https://github.com/keyyH4B)_
+![GitHub Streak](https://streak-stats.demolab.com/?user=keyyH4B\&theme=dark\&border_radius=5)
